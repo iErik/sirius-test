@@ -1,10 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+import store from '@store'
+import AppRoutes from './routes'
+
+createRoot(document.getElementById('root') as Element)
+  .render(
+    <StrictMode>
+      <Provider store={store}>
+        <AppRoutes />
+      </Provider>
+    </StrictMode>
+  )

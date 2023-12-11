@@ -1,0 +1,5 @@
+export { default as email } from './email.svg?react'
+export { default as link } from './link.svg?react'
+export { default as location } from './location.svg?react'
+export { default as repo } from './repo.svg?react'
+export { default as star } from './star.svg?react'

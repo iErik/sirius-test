@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "src/*": ["src/*"],
+      "root/*": ["./*"],
+      "@typings/*": [ "./typings/*" ],
+      "@hooks/*": ["src/hooks/*"],
+      "@hooks": ["src/hooks/index.ts"],
+      "@components/*": ["src/components/*"],
+      "@components": ["src/components/index.ts"],
+      "@containers/*": ["src/containers/*"],
+      "@containers": ["src/containers/index.ts"],
+      "@store/*": ["src/store/*"],
+      "@store": ["src/store/index.ts"],
+      "@services/*": ["src/services/*"],
+      "@services": ["src/services/index.ts"],
+      "@styles/*": ["src/styles/*"],
+      "@styles": ["src/styles/index.ts"],
+      "@static/*": ["src/static/*"],
+      "@static": ["src/static/index.ts"],
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils/index.ts"],
+      "@modules/*": ["src/modules/*"],
+      "@modules": ["src/modules/index.ts"],
+      "@views/*": ["src/views/*"],
+      "@views": ["src/views/index.ts"],
+      "@layouts/*": ["src/layouts/*"],
+      "@layouts": ["src/layouts/index.ts"],
+      "@stitched/*": ["src/stitched/*"],
+      "@stitched": ["src/stitched/index.ts"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@middlewares": ["src/middlewares/index.ts"]
+    }
+  }
+}
