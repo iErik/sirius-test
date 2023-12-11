@@ -8,12 +8,8 @@ import {
 
 import reposReducer from './repos'
 
-
 export const store = configureStore({
-  reducer: {
-    repos: reposReducer
-  },
-
+  reducer: { repos: reposReducer },
   devTools: true
 })
 

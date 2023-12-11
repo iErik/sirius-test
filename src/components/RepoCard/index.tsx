@@ -37,7 +37,7 @@ const Container = styled('a', {
 
   '&:hover': {
     backgroundColor: '$bgLighter',
-    border: '1px solid #47474e'
+    border: '1px solid $borderLight'
   }
 })
 

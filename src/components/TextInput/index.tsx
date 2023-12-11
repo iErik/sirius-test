@@ -5,6 +5,7 @@ import { styled } from '@stitched'
 
 interface InputProps extends JSX.IntrinsicAttributes {
   onInput: Function
+  placeholder?: string
 }
 
 // -> Elements

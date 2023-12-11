@@ -22,10 +22,8 @@ interface UserCardProps extends JSX.IntrinsicAttributes {
 
 const Container = styled(Link, {
   display: 'flex',
-  //height: 100,
   width: '100%',
   maxWidth: 800,
-  //padding: '0 15px 15px',
 
   background: '$bgLight',
   borderRadius: 12,
@@ -35,7 +33,7 @@ const Container = styled(Link, {
   '&:hover': {
     cursor: 'pointer',
     backgroundColor: '$bgLighter',
-    border: '1px solid #47474e'
+    border: '1px solid $borderLight'
   }
 })
 
@@ -43,7 +41,6 @@ const Avatar = styled('div', {
   width: 70,
   height: 70,
   borderRadius: 8,
-  //marginRight: 15,
 
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
@@ -64,7 +61,11 @@ const UserCard = ({ user, ...props }: UserCardProps) => {
       {...props}
     >
       <Flexbox>
-        <Flexbox padding="10px" hAlign="center" vAlign="center">
+        <Flexbox
+          padding="10px"
+          hAlign="center"
+          vAlign="center"
+        >
           <Avatar css={avatarCss} />
         </Flexbox>
 

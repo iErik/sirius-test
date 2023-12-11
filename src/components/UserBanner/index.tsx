@@ -61,7 +61,7 @@ const UserBanner = ({
     <MainContainer {...props}>
       <Avatar css={avatarCss} />
 
-      <Flexbox column gap="0">
+      <Flexbox column>
         <Text size="3xl">{ user?.name }</Text>
         <Text size="lg">{ user?.login }</Text>
         <Text size="base">{ user?.email }</Text>
@@ -69,15 +69,19 @@ const UserBanner = ({
 
         <Text>{ user?.bio }</Text>
 
-        <Flexbox gap="10">
+        <Flexbox gap="10" padding="15px 0 0 0">
           <Flexbox gap="5">
-            <Text weight="semiBold">{ user?.followers }</Text>
+            <Text weight="semiBold">
+              { user?.followers }
+            </Text>
             <Text>seguidores</Text>
           </Flexbox>
           <Text weight="bold">·</Text>
           <Flexbox gap="5">
             <Text>seguindo</Text>
-            <Text weight="semiBold">{ user?.following }</Text>
+            <Text weight="semiBold">
+              { user?.following }
+            </Text>
           </Flexbox>
         </Flexbox>
       </Flexbox>

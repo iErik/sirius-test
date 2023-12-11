@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { RootState } from '@store'
-import * as Search from '@services/Search'
+import * as Api from '@services/Api'
 
 // -> Types
 // --------
@@ -63,13 +63,15 @@ export type SearchItem = {
 }
 
 export interface ReposState {
-  currentPage: number
-  //reposPage: number
-  searchQuery: string
   userDetails: SearchItem | null
   repos: Array<any>
-  users: Repo[]
   search: SearchItem[]
+
+  searchPagination: {
+    query: string
+    page: number
+    hasNextPage: boolean
+  }
 
   reposPagination: {
     page: number
@@ -80,17 +82,19 @@ export interface ReposState {
 }
 
 const initialState: ReposState = {
-  currentPage: 1,
+  searchPagination: {
+    query: '',
+    page: 1,
+    hasNextPage: false
+  },
   reposPagination: {
     page: 1,
     sort: 'stars',
     order: 'desc',
     hasNextPage: false
   },
-  searchQuery: '',
   userDetails: null,
   repos: [],
-  users: [],
   search: []
 }
 
@@ -100,23 +104,26 @@ const initialState: ReposState = {
 export const searchUsers = createAsyncThunk(
   'repos/searchUsers',
   async (query: string) => {
-    const items = await Search.searchUsers(query)
+    const data = await Api.searchUsers({ query })
 
-    return { items, query }
+    return { data, query }
   })
 
 export const paginateUsers = createAsyncThunk(
   'repos/paginateUsers',
   (_, { getState }) => {
     const { repos } = getState() as { repos: ReposState } 
+    const { searchPagination: pag } = repos
 
-    return Search
-      .searchUsers(repos.searchQuery, repos.currentPage + 1)
+    return Api.searchUsers({
+      ...pag,
+      page: pag.page + 1
+    })
   })
 
 export const fetchUser = createAsyncThunk(
   'repos/fetchUser',
-  (username: string) => Search.fetchUser(username))
+  (username: string) => Api.fetchUser(username))
 
 export const fetchRepos = createAsyncThunk(
   'repos/fetchRepos',
@@ -124,7 +131,7 @@ export const fetchRepos = createAsyncThunk(
     const { repos } = getState() as { repos: ReposState } 
     const pag = repos.reposPagination || {}
 
-    return Search.fetchUserRepos(username, pag)
+    return Api.fetchUserRepos(username, pag)
   })
 
 export const paginateRepos = createAsyncThunk(
@@ -134,7 +141,7 @@ export const paginateRepos = createAsyncThunk(
     const user = repos.userDetails?.login || ''
     const pag = repos.reposPagination || {}
 
-    return Search.fetchUserRepos(user, {
+    return Api.fetchUserRepos(user, {
       ...(pag || {}),
       page: pag.page + 1
     })
@@ -149,22 +156,30 @@ export const reposSlice = createSlice({
   extraReducers (builder) {
     builder
       .addCase(searchUsers.fulfilled, (state, action) => {
-        const { items, query } = action.payload || {}
+        const { data, query } = action.payload || {}
+        const total = data?.total_count
 
-        state.searchQuery = query
-        state.currentPage = 1
+        state.searchPagination.query = query
+        state.searchPagination.page = 1
         state.search = [
-          ...(items as SearchItem[] || [])
+          ...(data?.items as SearchItem[] || [])
         ]
+
+        state.searchPagination.hasNextPage =
+          state.search?.length < total
       })
       .addCase(paginateUsers.fulfilled, (state, action) => {
-        const items = action.payload || {}
+        const data = action.payload || {}
+        const total = data?.total_count
 
-        state.currentPage += 1
+        state.searchPagination.page += 1
         state.search = [
           ...(state.search || []),
-          ...(items || [])
+          ...(data?.items || []) as SearchItem[]
         ]
+
+        state.searchPagination.hasNextPage =
+          state.search?.length < total
       })
       .addCase(fetchRepos.fulfilled, (state, action) => {
         const {

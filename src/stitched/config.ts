@@ -3,10 +3,10 @@ import { toRgba } from '@utils/misc'
 export default {
   theme: {
     colors: {
-      //bgBase: '#1C2128',
       bgBase: '#1d1b22',
       bgLight: '#26262e',
       bgLighter: '#34343b',
+      borderLight: '#47474e',
 
       fgBase: '#FFF',
       fg10: toRgba('#FFFFFF', .1) as string,

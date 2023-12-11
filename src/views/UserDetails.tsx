@@ -53,11 +53,6 @@ const ReposHeader = styled('div', {
 // -> View
 // -------
 
-// Critério de ordenação
-// Ordem da listagem
-// Paginação
-// Responsividade
-
 type OptionType = {
   value: string
   label: string
@@ -149,8 +144,6 @@ const UserDetails = () => {
   const user = useSelector(state => state.repos
     ?.userDetails)
   const repos = useSelector(state => state.repos?.repos)
-
-  console.log({ username, user, repos })
 
   useEffect(() => {
     if (!username) return 

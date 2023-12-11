@@ -9,7 +9,6 @@ export const fetchUser = async (username: string) => {
   return data?.data || {} 
 }
 
-
 export type FetchRepoOpts = {
   page?: number
   sort?: 'stars' | 'forks' | 'updated'
@@ -29,14 +28,12 @@ export const fetchUserRepos = async (
   return data
 }
 
-export const searchUsers = async (
-  query: string,
-  page: number = 1
-)
-  : Promise<SearchItem[]> => {
+export const searchUsers = async ({
+  query,
+  page = 1
+}: { query: string, page?: number }) => {
   const data = await octo.request('GET /search/users', {
     headers: {
-      'X-Github-Api-Version': '2022-11-28',
       'Accept': 'application/vnd.github+json'
     },
     q: query,
@@ -45,15 +42,16 @@ export const searchUsers = async (
 
   const items = await Promise.all(data?.data?.items
     ?.map(async item => {
-      const fullData = await octo.request('GET /users/{username}', {
-        username: item?.login
-      })
+      const userData = await fetchUser(item?.login)
 
       return {
         ...(item || {}),
-        ...(fullData?.data || {})
+        ...(userData || {})
       } as SearchItem
     }))
 
-  return (items || []) as SearchItem[]
+  return {
+    ...(data?.data || {}),
+    items
+  }
 }

@@ -1,5 +1,4 @@
 import * as Chillax from '@static/fonts/Chillax'
-import * as ShareTechMono from '@static/fonts/ShareTechMono'
 
 // -> Types
 // --------
@@ -88,16 +87,6 @@ const chillaxFonts: FontFamilyConfig = {
   }
 }
 
-const shareTechMonoFonts: FontFamilyConfig = {
-  name: 'Share Tech Mono',
-  path: './fonts/ShareTechMono',
-  format: 'woff2',
-  weights: {
-    400: { src: ShareTechMono.Regular },
-  }
-}
-
 export default fontFamilies([
-  chillaxFonts,
-  shareTechMonoFonts
+  chillaxFonts
 ])

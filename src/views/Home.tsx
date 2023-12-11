@@ -53,6 +53,8 @@ const SearchBar = styled(TextInput, {
 
 const Home = () => {
   const dispatch = useDispatch()
+  const hasNextPage = useSelector(state =>
+    state.repos.searchPagination.hasNextPage)
   const searchItems = useSelector(state =>
     state.repos.search)
 
@@ -69,14 +71,17 @@ const Home = () => {
           GitBox
         </Text>
 
-        <SearchBar onInput={onSearch} />
+        <SearchBar
+          onInput={onSearch}
+          placeholder="Pesquise por um usuário do Github :)"
+        />
       </SearchBarContainer>
 
       <ResultsContainer>
         <InfiniteScroll
           dataLength={searchItems.length}
           next={onPaginate}
-          hasMore={true}
+          hasMore={hasNextPage}
           loader={<span />}
           scrollableTarget="main-container"
           style={{ width: '100%' }}
