@@ -21,7 +21,12 @@ const TextInputEl = styled('input', {
 
   height: 65,
   borderRadius: 10,
-  padding: '0 20px'
+  padding: '0 20px',
+
+  '@mobile': {
+    padding: '0 10px',
+    '&::placeholder': { fontSize: '$xs' }
+  }
 })
 
 // -> Export
