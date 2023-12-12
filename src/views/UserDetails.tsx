@@ -78,7 +78,6 @@ const RepoList = ({
     if (username) dispatch(fetchRepos(username))
   }
 
-
   const criteriaOptions = [
     { value: 'stars', label: 'Número de estrelas' },
     { value: 'forks', label: 'Número de forks' },

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import type { RootState } from '@store'
 import * as Api from '@services/Api'
 
 // -> Types
@@ -61,6 +60,9 @@ export type SearchItem = {
   updated_at: string
   url: string
 }
+
+// -> State
+// --------
 
 export interface ReposState {
   userDetails: SearchItem | null

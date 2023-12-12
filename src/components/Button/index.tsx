@@ -26,14 +26,14 @@ const ButtonEl = styled('button', {
 
   '&:hover': {
     backgroundColor: '$bgLighter',
-    border: '1px solid #47474e'
+    border: '1px solid $borderLight'
   },
 
   variants: {
     active: {
       true: {
         backgroundColor: '$bgLighter',
-        border: '1px solid #47474e'
+        border: '1px solid $borderLight'
       }
     }
   }
